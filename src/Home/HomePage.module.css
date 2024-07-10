@@ -36,10 +36,12 @@
   padding: 30px;
   border-radius: 8px;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 1s;
+  /* transition: transform(2s); */
   cursor: pointer;
 }
 .box:hover{
-  transition-duration: 150ms;
+  transition-duration: 650ms;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   transform: scale(1.25);
 }

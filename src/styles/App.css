@@ -1,1 +1,17 @@
 @import "leaflet/dist/leaflet.css";
+
+.content{
+    /* background: lightblue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidenav{
+    background: gold;
+    padding: 10px;
+}
+
+.content > .sidenav > ul > li > a{
+    padding: 15px;
+}

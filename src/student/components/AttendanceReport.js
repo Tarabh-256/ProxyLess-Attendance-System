@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "./styles/AttendanceTable.module.css";
+// import axios from "axios";
+import API from '../services/api';
+import {  TableHead, TableRow, TableCell } from '@mui/material';
+import styles from "../../styles/AttendanceTable.module.css";
+
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 
-const AttendanceTable = () => {
+function refreshPage() {
+  setTimeout(()=>{
+      window.location.reload(false);
+  }, 500);
+  console.log('page to reload')
+};
+
+const AttendanceReport = () => {
   const [records, setRecords] = useState([]);
 
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/attendance`
+        const response = await API.get(
+          '/attendance'
         );
         setRecords(response.data);
       } catch (error) {
@@ -24,8 +34,8 @@ const AttendanceTable = () => {
 
   const exportToCSV = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/attendance/export/csv`,
+      const response = await API.get(
+        '/attendance/export/csv',
         { responseType: "blob" }
       );
       const blob = new Blob([response.data], {
@@ -39,8 +49,8 @@ const AttendanceTable = () => {
 
   const exportToPDF = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/attendance/export/pdf`,
+      const response = await API.get(
+        '/attendance/export/pdf',
         { responseType: "blob" }
       );
       const blob = new Blob([response.data], { type: "application/pdf" });
@@ -60,14 +70,15 @@ const AttendanceTable = () => {
   return (
     <>
       <h2 className="text-xl italic font-bold font-[monospace] mt-11">Attendance Records</h2>
-    <div className={styles.container}>
       <div className={styles.exportButtons}>
+        <button onClick={refreshPage}>Refresh</button>
         <button onClick={exportToCSV}>Export to CSV</button>
         <button onClick={exportToPDF}>Export to PDF</button>
         <button onClick={exportToExcel}>Export to Excel</button>
       </div>
+    <div className={styles.container}>
       <table className={styles.table}>
-        <thead>
+        {/* <theadn >
           <tr>
             <th>Student ID</th>
             <th>Student Name</th>
@@ -76,7 +87,23 @@ const AttendanceTable = () => {
             <th>Longitude</th>
             <th>Date</th>
           </tr>
-        </thead>
+        </theadn> */}
+        <TableHead>
+          <TableRow>
+            <TableCell style={{ position: 'sticky', top: 0, backgroundColor: 'rgb(0 123 255)', zIndex: 1, textAlign: 'center', color: 'white',fontSize: '18px' }}>Student ID</TableCell>
+            <TableCell style={{ position: 'sticky', top: 0, backgroundColor: 'rgb(0 123 255)', zIndex: 1, textAlign: 'center', color: 'white',fontSize: '18px' }}>Student Name</TableCell>
+            <TableCell style={{ position: 'sticky', top: 0, backgroundColor: 'rgb(0 123 255)', zIndex: 1, textAlign: 'center', color: 'white',fontSize: '18px' }}>Address Key</TableCell>
+            <TableCell style={{ position: 'sticky', top: 0, backgroundColor: 'rgb(0 123 255)', zIndex: 1, textAlign: 'center', color: 'white',fontSize: '18px' }}>Latitude</TableCell>
+            <TableCell style={{ position: 'sticky', top: 0, backgroundColor: 'rgb(0 123 255)', zIndex: 1, textAlign: 'center', color: 'white',fontSize: '18px' }}>Longitude</TableCell>
+            <TableCell style={{ position: 'sticky', top: 0, backgroundColor: 'rgb(0 123 255)', zIndex: 1, textAlign: 'center', color: 'white',fontSize: '18px' }}>Date</TableCell>
+          </TableRow>
+        </TableHead>
+
+
+
+
+
+
         <tbody>
           {records.map((record) => (
             <tr key={record._id}>
@@ -95,4 +122,4 @@ const AttendanceTable = () => {
   );
 };
 
-export default AttendanceTable;
+export default AttendanceReport;

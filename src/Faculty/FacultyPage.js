@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-// import GenerateKey from './GenerateKey';
+// import axios from 'axios';
+import API from '../student/services/api';
 import { Link } from 'react-router-dom';
-import AttendanceTable from './AttendanceTable';
-import styles from './styles/FacultyPage.module.css';
+import styles from './FacultyStyle/FacultyPage.module.css';
+
+function refreshPage() {
+  setTimeout(()=>{
+      window.location.reload(false);
+  }, 500);
+  console.log('page to reload')
+};
 
 const FacultyPage = () => {
   const [generatedKey, setGeneratedKey] = useState('');
@@ -11,7 +17,8 @@ const FacultyPage = () => {
 
   const handleGenerateKey = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/generate-key`);
+      const response = await API.post('/generate-key');
+      // const response = await API.post(`${process.env.REACT_APP_BACKEND_URL}/generate-key`);
       setGeneratedKey(response.data.key);
       setMessage('Key generated successfully');
     } catch (error) {
@@ -25,16 +32,11 @@ const FacultyPage = () => {
     <div className={styles.container}>
       <div className={styles.btnflex}>
       <button className={styles.button} onClick={handleGenerateKey}>Generate Address Key</button>
-      {/* {generatedKey && <p className={styles.key}>Generated Key: {generatedKey}</p>} */}
       <input className={styles.input} type="text" value={generatedKey} />
       </div>
       {message && <p className={styles.message}>{message}</p>}
-      <AttendanceTable />
-      <Link to="/faculty" className={styles.link}>Refresh</Link>
-      <Link to="/" className={styles.link}>Back to Home</Link>
-
-      {/* <Link to="/" className={styles.link}>Back to Home</Link> */}
-      
+      <Link to="" onClick={refreshPage} className={styles.link}>Refresh</Link>
+      <Link to="/" className={styles.link}>Back to Home</Link>      
     </div>
     </>
   );

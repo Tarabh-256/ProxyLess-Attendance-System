@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import API from '../services/api';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import styles from './styles/AttendanceForm.module.css';
+import styles from '../../styles/AttendanceForm.module.css';
+
 
 // Fix for default icon issues in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -15,7 +17,7 @@ L.Icon.Default.mergeOptions({
 });
 
 // 22.489819798644515, 80.08628956466482 indias longitude and altitude
-const AttendanceForm = () => {
+const MarkAttendance = () => {
   const [location, setLocation] = useState({ lat: 22.489819798644515, lng: 80.08628956466482 });
   const [addressKey, setAddressKey] = useState('');
   const [message, setMessage] = useState('');
@@ -41,7 +43,7 @@ const AttendanceForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/attendance`, {
+      const response = await API.post("/attendance", {
         studentId,
         studentName,
         addressKey,
@@ -55,8 +57,9 @@ const AttendanceForm = () => {
   };
 
   return (
+    <>
     <div className={styles.container}>
-      {/* <h2>Student Attendance Page</h2> */}
+      {/* <h2>Student Attendance </h2> */}
       <form className={styles.form} onSubmit={handleSubmit}>
 
       <div>
@@ -80,7 +83,6 @@ const AttendanceForm = () => {
           required
         />
       </div>
-
 
         <div>
           <label className={styles.label}>Address Key: </label>
@@ -109,7 +111,12 @@ const AttendanceForm = () => {
         </Marker>
       </MapContainer>
     </div>
+
+    
+    </>
+
+
   );
 };
 
-export default AttendanceForm;
+export default MarkAttendance
