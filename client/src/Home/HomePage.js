@@ -40,7 +40,7 @@ const HomePage = () => {
           </div>
 
           <Link to="/student-portal/todo-list" className={styles.link}>
-          student-portal
+          Admin
           </Link>
         </Link>
         

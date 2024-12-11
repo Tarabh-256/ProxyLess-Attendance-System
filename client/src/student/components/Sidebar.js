@@ -11,6 +11,7 @@ const Sidebar = () => {
         <li><Link to="/dashboard/mark-attendance">Mark Attendance</Link></li>
         <li><Link to="/dashboard/attendance-report">Attendance Report</Link></li>
         <li><Link to="/dashboard/events">Events</Link></li>
+        <li><Link to="/logout">Logout</Link></li>
       </ul>
     </div>
   );

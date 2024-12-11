@@ -4,12 +4,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.mjs';
 
-
 import Attendance from '../models/Attendance.mjs';
 import AddressKey from '../models/AddressKey.mjs';
 import { parse } from 'json2csv';
 import pdf from 'html-pdf';
-
 
 const router = express.Router();
 
@@ -129,7 +127,6 @@ router.post('/generate-key', async (req, res) => {
   }
 });
 
-
 router.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -178,6 +175,20 @@ router.get('/dashboard', (req, res) => {
     res.json({ message: 'Welcome to the dashboard' });
   } catch (err) {
     res.status(400).send('Invalid Token');
+  }
+});
+
+// Add delete records route
+router.delete('/attendance/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedRecord = await Attendance.findByIdAndDelete(id);
+    if (!deletedRecord) {
+      return res.status(404).json({ message: 'Record not found' });
+    }
+    res.status(200).json({ message: 'Record deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting record', error });
   }
 });
 

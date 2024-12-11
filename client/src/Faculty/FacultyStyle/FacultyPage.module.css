@@ -37,7 +37,8 @@
   }
   
   .message {
-    color: #333;
+    color: hsl(110, 75%, 58%);
+    font-weight: bold;
     margin-top: 20px;
   }
   

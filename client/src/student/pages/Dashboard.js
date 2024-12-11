@@ -6,7 +6,10 @@ import TodoList from '../components/TodoList';
 import MarkAttendance from '../components/MarkAttendance';
 import AttendanceReport from '../components/AttendanceReport';
 import EventsComponent from '../components/EventComponent';
+import ProtectedRoute from '../components/ProtectedRoute';
+
 import '../../Dashboard.css'
+import Logout from './Logout';
 
 const Dashboard = () => {
   return (
@@ -20,6 +23,8 @@ const Dashboard = () => {
           <Route path="attendance-report" element={<AttendanceReport />} />
           <Route path="events" element={<EventsComponent />} />
           <Route path="todo-list" element={<Navigate to="todo-list" />} />
+          <Route path="logout" element={<ProtectedRoute element={Logout} />}/>
+          
         </Routes>
       </div>
       </div>

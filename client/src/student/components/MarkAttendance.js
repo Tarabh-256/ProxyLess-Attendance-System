@@ -59,7 +59,7 @@ const MarkAttendance = () => {
   return (
     <>
     <div className={styles.container}>
-      {/* <h2>Student Attendance </h2> */}
+      <h2 className='font-bold text-2xl font-serif text-teal-800 pt-3'>Mark Attendance </h2>
       <form className={styles.form} onSubmit={handleSubmit}>
 
       <div>
@@ -67,6 +67,7 @@ const MarkAttendance = () => {
         <input
           className={styles.input}
           type="text"
+          placeholder='Enter student ID'
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
           required
@@ -78,6 +79,7 @@ const MarkAttendance = () => {
         <input
           className={styles.input}
           type="text"
+          placeholder='Enter Name'
           value={studentName}
           onChange={(e) => setStudentName(e.target.value)}
           required
@@ -85,10 +87,11 @@ const MarkAttendance = () => {
       </div>
 
         <div>
-          <label className={styles.label}>Address Key: </label>
+          <label className={styles.label} >Address Key: </label>
           <input
             className={styles.input}
             type="text"
+            placeholder='Enter Generated key'
             value={addressKey}
             onChange={(e) => setAddressKey(e.target.value)}
             required

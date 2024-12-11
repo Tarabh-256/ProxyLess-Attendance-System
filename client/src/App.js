@@ -5,6 +5,7 @@ import FacultyPage from "./Faculty/FacultyPage";
 import SignUp from "./student/pages/Signup";
 import NavHeader from "./common/Navbar";
 import Login from './student/pages/Login';
+import Logout from './student/pages/Logout';
 
 
 import ProtectedRoute from './student/components/ProtectedRoute';
@@ -20,12 +21,13 @@ const App = () => {
       <NavHeader />
       <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/student/*" element={<Login />} />
+          <Route path="/student/*" element={<SignUp />} />
           <Route path="/faculty/*" element={<FacultyPage />} />
           <Route path="/login/*" element={<Login />} />
           <Route path="/signup/*" element={<SignUp />} />
-          {/* <ProtectedRoute path="/dashboard/*" component={Dashboard} /> */}
-          <Route path="/dashboard/*" element={<ProtectedRoute element={Dashboard} />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
+          {/* <Route path="/dashboard/*" element={<ProtectedRoute Component={Dashboard} />} /> */}
+          <Route path="/logout/*" element={<ProtectedRoute element={Logout} />}/>
       </Routes>
     </Router>
     </AuthProvider>

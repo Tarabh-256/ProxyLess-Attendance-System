@@ -3,15 +3,15 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('SECRET_KEY'));
 
   const login = (token) => {
-    localStorage.setItem('token', token);
+    localStorage.setItem('SECRET_KEY', token);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('SECRET_KEY');
     setIsAuthenticated(false);
   };
 
